@@ -20,5 +20,5 @@ $ g++ main.cpp tensor.cpp functional.cpp -O2 -Wall -std=c++17 -o Example
 ~~~
 
 ~~~
-$ Example
+$ ./Example
 ~~~

@@ -72,6 +72,7 @@ namespace lightgrad{
         std::vector<size_t> shape();
         float *data();
         TensorFloat &grad();
+        float scalar();
 
         // Destructor
         ~TensorFloat();

@@ -484,6 +484,22 @@ lightgrad::TensorFloat &lightgrad::TensorFloat::grad(){
 }
 
 
+// ----------------------------------------------------------------
+// namespace{lightgrad} -> class{TensorFloat} -> function{scalar}
+// ----------------------------------------------------------------
+float lightgrad::TensorFloat::scalar(){
+    if (!this->exist){
+        std::cerr << "Error: Couldn't obtain 'scalar' because the member 'exist' of Tensor is false." << std::endl;
+        std::exit(1);
+    }
+    else if (this->struct_ptr->size != 1){
+        std::cerr << "Error: The number of elements in the tensor is not 1." <<  " (size = " << this->struct_ptr->size << ")" << std::endl;
+        std::exit(1);
+    }
+    return this->struct_ptr->data[0];
+}
+
+
 // ----------------------------------------------------------
 // namespace{lightgrad} -> class{TensorFloat} -> destructor
 // ----------------------------------------------------------

@@ -18,30 +18,30 @@ int main(void){
     x1.from_scalar(2.0);
     x2.from_scalar(3.0);
     x3.from_scalar(5.0);
-    std::cout << "x1 = " << x1.data()[0];
-    std::cout << ", x2 = " << x2.data()[0];
-    std::cout << ", x3 = " << x3.data()[0];
+    std::cout << "x1 = " << x1.scalar();
+    std::cout << ", x2 = " << x2.scalar();
+    std::cout << ", x3 = " << x3.scalar();
     std::cout << std::endl;
     
     // (2) y = x1^3 * x2^2 + x1 * x3 = 82
     y = x1 * x1 * x1 * x2 * x2 + x1 * x3;
-    std::cout << "y = x1^3 * x2^2 + x1 * x3 = " << y.data()[0] << std::endl;
+    std::cout << "y = x1^3 * x2^2 + x1 * x3 = " << y.scalar() << std::endl;
 
     // (3.1) y' = 3 * x1^2 * x2^2 + x3 = 113
     grad = lg::differential(y, x1, 1);
-    std::cout << "y' = 3 * x1^2 * x2^2 + x3 = " << grad.data()[0] << std::endl;
+    std::cout << "y' = 3 * x1^2 * x2^2 + x3 = " << grad.scalar() << std::endl;
 
     // (3.2) y'' = 6 * x1 * x2^2 = 108
     grad = lg::differential(y, x1, 2);
-    std::cout << "y'' = 6 * x1 * x2^2 = " << grad.data()[0] << std::endl;
+    std::cout << "y'' = 6 * x1 * x2^2 = " << grad.scalar() << std::endl;
 
     // (3.3) y''' = 6 * x2^2 = 54
     grad = lg::differential(y, x1, 3);
-    std::cout << "y''' = 6 * x2^2 = " << grad.data()[0] << std::endl;
+    std::cout << "y''' = 6 * x2^2 = " << grad.scalar() << std::endl;
 
     // (3.4) y'''' = 0
     grad = lg::differential(y, x1, 4);
-    std::cout << "y'''' = " << grad.data()[0] << std::endl << std::endl;
+    std::cout << "y'''' = " << grad.scalar() << std::endl << std::endl;
 
 
     // ----------------
@@ -69,7 +69,7 @@ int main(void){
     std::cout << "a3 = " << std::endl;
     std::cout << a3 << std::endl;
     /*****************************************************************/
-    a4.from_scalar({2});
+    a4.from_scalar(2);
     a4.new_grad();
     std::cout << "a4 = " << std::endl;
     std::cout << a4 << std::endl;

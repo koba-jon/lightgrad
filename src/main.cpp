@@ -64,7 +64,7 @@ int main(void){
     std::cout << "a2 = " << std::endl;
     std::cout << a2 << std::endl;
     /*****************************************************************/
-    a3.from_array({2, 2, 2, 2, 2, 1, 1, 1 ,1 ,1 ,1 ,1}, {2, 2, 3});
+    a3.from_array({2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1}, {2, 2, 3});
     a3.new_grad();
     std::cout << "a3 = " << std::endl;
     std::cout << a3 << std::endl;

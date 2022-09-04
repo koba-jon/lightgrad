@@ -17,6 +17,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
 set(SRCS
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/tensor.cpp
+    ${SRC_DIR}/operator.cpp
     ${SRC_DIR}/functional.cpp
 )
 

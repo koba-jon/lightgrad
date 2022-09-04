@@ -2,7 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include <lightgrad/tensor.hpp>
-#include <lightgrad/functional.hpp>
+#include <lightgrad/operator.hpp>
 
 
 // ----------------------------------------------------------------

@@ -1,5 +1,5 @@
 # LightGrad
-**LightGrad** is Lightest Gradient Calculation Framework by C++.<br>
+**LightGrad** is **Light**est **Grad**ient Calculation Framework in C++.<br>
 This framework is a learning material created for us to understand Define-by-Run such as PyTorch.<br>
 
 ## Build & Execute

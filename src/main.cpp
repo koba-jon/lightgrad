@@ -1,5 +1,5 @@
 #include <iostream>
-#include "lightgrad.hpp"
+#include <lightgrad/lightgrad.hpp>
 
 namespace lg = lightgrad;
 

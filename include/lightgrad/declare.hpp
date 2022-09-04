@@ -1,5 +1,5 @@
-#ifndef DECLARE_HPP
-#define DECLARE_HPP
+#ifndef LIGHTGRAD_DECLARE_HPP
+#define LIGHTGRAD_DECLARE_HPP
 
 // Forward declaration for class and structure
 namespace lightgrad{

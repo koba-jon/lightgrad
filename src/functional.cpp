@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
-#include "tensor.hpp"
-#include "functional.hpp"
+#include <lightgrad/tensor.hpp>
+#include <lightgrad/functional.hpp>
 
 
 // --------------------------------------------------------------

@@ -1,9 +1,9 @@
-#ifndef TENSOR_HPP
-#define TENSOR_HPP
+#ifndef LIGHTGRAD_TENSOR_HPP
+#define LIGHTGRAD_TENSOR_HPP
 
 #include <iostream>
 #include <vector>
-#include "declare.hpp"
+#include <lightgrad/declare.hpp>
 
 
 // ----------------------

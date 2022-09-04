@@ -2,22 +2,35 @@
 ***LightGrad*** is ***Light**est **Grad**ient Calculation Framework* in C++.<br>
 This framework is a learning material created for us to understand Define-by-Run such as PyTorch.<br>
 
-## Build & Execute
+## (1) Clone
 
 ~~~
 $ git clone https://github.com/koba-jon/lightgrad.git
-$ cd lightgrad/src
+$ cd lightgrad
 ~~~
+
+## (2) Build
 
 For debug:
 ~~~
-$ g++ main.cpp tensor.cpp functional.cpp -O0 -fsanitize=address -fno-omit-frame-pointer -g -Wall -std=c++17 -o Example
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Debug ..
+$ make
+$ cd ..
 ~~~
 
 For release:
 ~~~
-$ g++ main.cpp tensor.cpp functional.cpp -O2 -Wall -std=c++17 -o Example
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ make
+$ cd ..
 ~~~
+
+
+## (3) Execute
 
 ~~~
 $ ./Example

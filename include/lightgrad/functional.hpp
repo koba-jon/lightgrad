@@ -1,9 +1,9 @@
-#ifndef FUNCTIONAL_HPP
-#define FUNCTIONAL_HPP
+#ifndef LIGHTGRAD_FUNCTIONAL_HPP
+#define LIGHTGRAD_FUNCTIONAL_HPP
 
 #include <string>
 #include <vector>
-#include "declare.hpp"
+#include <lightgrad/declare.hpp>
 
 
 // ----------------------

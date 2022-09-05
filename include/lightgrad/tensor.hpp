@@ -30,7 +30,7 @@ namespace lightgrad{
 
         // Member variable
         bool exist = false;
-        TensorFloatStruct *struct_ptr = nullptr;
+        TensorFloatParam *param = nullptr;
 
         // Constructor
         TensorFloat() = default;  // Default
@@ -50,10 +50,11 @@ namespace lightgrad{
         TensorFloat operator=(const float scalar);  // Assignment
         TensorFloat &operator+=(const TensorFloat &tensor);  // Addition assignment
         TensorFloat &operator*=(const TensorFloat &tensor);  // Multiplication assignment
+        TensorFloat operator[](const size_t idx);  // Subscript
         friend std::ostream &operator<<(std::ostream &os, const TensorFloat &tensor);  // Insertion
 
         // Function
-        void connect(TensorFloatStruct * const struct_ptr_);
+        void connect(TensorFloatParam * const param_);
         void disconnect();
         /****************************/
         void allocate(const std::vector<size_t> &shape_);
@@ -68,6 +69,9 @@ namespace lightgrad{
         void new_grad();
         void delete_grad();
         /****************************/
+        TensorFloat detach();
+        TensorFloat clone();
+        /****************************/
         size_t size();
         std::vector<size_t> shape();
         float *data();
@@ -80,10 +84,10 @@ namespace lightgrad{
     };
 
 
-    // ------------------------------
-    // structure{TensorFloatStruct}
-    // ------------------------------
-    struct TensorFloatStruct{
+    // -----------------------------
+    // structure{TensorFloatParam}
+    // -----------------------------
+    struct TensorFloatParam{
 
     public:
 
@@ -102,14 +106,14 @@ namespace lightgrad{
         Function *creator = nullptr;
 
         // Constructor
-        TensorFloatStruct() = default;  // Default
-        TensorFloatStruct(const TensorFloatStruct &tensor) = delete;  // Copy
+        TensorFloatParam() = default;  // Default
+        TensorFloatParam(const TensorFloatParam &tensor) = delete;  // Copy
 
         // Operator
-        TensorFloatStruct operator=(const TensorFloatStruct &tensor) = delete;  // Assignment
+        TensorFloatParam operator=(const TensorFloatParam &tensor) = delete;  // Assignment
 
         // Destructor
-        ~TensorFloatStruct();
+        ~TensorFloatParam();
 
     };
 

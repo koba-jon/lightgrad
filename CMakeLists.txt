@@ -19,6 +19,7 @@ set(SRCS
     ${SRC_DIR}/tensor.cpp
     ${SRC_DIR}/operator.cpp
     ${SRC_DIR}/functional.cpp
+    ${SRC_DIR}/optimizer.cpp
 )
 
 # Link

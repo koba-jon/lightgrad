@@ -11,6 +11,15 @@ $ cd lightgrad
 
 ## (2) Build
 
+For release (default):
+~~~
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ make
+$ cd ..
+~~~
+
 For debug:
 ~~~
 $ mkdir build
@@ -20,14 +29,6 @@ $ make
 $ cd ..
 ~~~
 
-For release:
-~~~
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_BUILD_TYPE=Release ..
-$ make
-$ cd ..
-~~~
 
 ## (3) Execute
 

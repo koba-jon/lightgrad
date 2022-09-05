@@ -5,39 +5,26 @@
 // Forward declaration for class and structure
 namespace lightgrad{
     
-    
     // For tensor.hpp
-    class TensorFloat;  // Tensor with float type
-    struct TensorFloatStruct;  // Tensor with float type for structure
+    class TensorFloat;  // Tensor with float type (paired with TensorFloatParam)
+    struct TensorFloatParam;  // Parameter of tensor with float type (paired with TensorFloat)
 
     // For operator.hpp
     class Addition;  // Addition
     class Multiplication;  // Multiplication
+    class Subscript;  // Subscript (paired with Unsubscript)
+    class Unsubscript;  // Unsubscript (paired with Subscript)
 
     // For functional.hpp
-    class Sum;  // Sum
-    class Expand;  // Expand
+    class Function;  // Function
+    class Identity;  // Identity
+    class View;  // View
+    class Sum;  // Sum (paired with Expand)
+    class Expand;  // Expand (paired with Sum)
 
-
-    // -----------------
-    // class{Function}
-    // -----------------
-    class Function{
-
-    public:
-
-        // Constructor
-        Function() = default;
-
-        // Function (pure virtual)
-        virtual void backward(TensorFloat grad) = 0;
-        virtual std::string type_name() = 0;
-
-        // Destructor (pure virtual)
-        virtual ~Function() = default;
-
-    };
-
+    // For optimizer.hpp
+    class Optimizer;  // Optimizer
+    class SGD;  // Stochastic Gradient Descent
 
 }
 

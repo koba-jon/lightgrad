@@ -14,11 +14,87 @@ namespace lightgrad{
 
 
     // Forward declaration for function
+    TensorFloat identity(TensorFloat tensor);
+    TensorFloat view(TensorFloat tensorI, const std::vector<size_t> &shape);
     TensorFloat sum(TensorFloat tensor);
     TensorFloat expand(TensorFloat tensor, const std::vector<size_t> &shape);
     /****************************/
-    TensorFloat detach(TensorFloat tensorI);
     TensorFloat differential(TensorFloat y, TensorFloat x, const unsigned int order = 1);
+
+
+    // -----------------
+    // class{Function}
+    // -----------------
+    class Function{
+
+    public:
+
+        // Constructor
+        Function() = default;
+
+        // Function (pure virtual)
+        virtual void backward(TensorFloat grad_) = 0;
+        virtual std::string type_name() = 0;
+        virtual Function *clone() = 0;
+
+        // Destructor (pure virtual)
+        virtual ~Function() = default;
+
+    };
+
+
+    // ---------------------------
+    // class{Identity}(Function)
+    // ---------------------------
+    class Identity : public Function{
+
+    private:
+
+        // Member variable
+        TensorFloat input;
+
+    public:
+
+        // Constructor
+        Identity() = default;  // Default
+
+        // Function
+        TensorFloat forward(TensorFloat input_);
+        void backward(TensorFloat grad_) override;
+        std::string type_name() override;
+        Function *clone() override;
+
+        // Destructor
+        ~Identity() = default;
+
+    };
+
+
+    // -----------------------
+    // class{View}(Function)
+    // -----------------------
+    class View : public Function{
+
+    private:
+
+        // Member variable
+        TensorFloat input;
+
+    public:
+
+        // Constructor
+        View() = default;  // Default
+
+        // Function
+        TensorFloat forward(TensorFloat input_, const std::vector<size_t> &shape_);
+        void backward(TensorFloat grad_) override;
+        std::string type_name() override;
+        Function *clone() override;
+
+        // Destructor
+        ~View() = default;
+
+    };
 
 
     // ----------------------
@@ -38,8 +114,9 @@ namespace lightgrad{
 
         // Function
         TensorFloat forward(TensorFloat input_);
-        void backward(TensorFloat grad) override;
+        void backward(TensorFloat grad_) override;
         std::string type_name() override;
+        Function *clone() override;
 
         // Destructor
         ~Sum() = default;
@@ -55,21 +132,18 @@ namespace lightgrad{
     private:
 
         // Member variable
-        size_t size = 0;
-        std::vector<size_t> shape;
-        /****************************/
         TensorFloat input;
 
     public:
 
         // Constructor
-        Expand() = delete;  // Default
-        Expand(const std::vector<size_t> &shape_);  // Original
+        Expand() = default;  // Default
 
         // Function
-        TensorFloat forward(TensorFloat input_);
-        void backward(TensorFloat grad) override;
+        TensorFloat forward(TensorFloat input_, const std::vector<size_t> &shape_);
+        void backward(TensorFloat grad_) override;
         std::string type_name() override;
+        Function *clone() override;
 
         // Destructor
         ~Expand() = default;

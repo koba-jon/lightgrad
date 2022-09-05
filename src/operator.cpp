@@ -64,14 +64,24 @@ std::string lightgrad::Addition::type_name(){
 }
 
 
-// ----------------------------------------------------------------------
-// namespace{lightgrad} -> class{Addition}(Function) -> function{clone}
-// ----------------------------------------------------------------------
-lightgrad::Function *lightgrad::Addition::clone(){
+// --------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Addition}(Function) -> function{clone_pre}
+// --------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Addition::clone_pre(){
     Addition *func = new Addition;
-    func->input1 = this->input1.clone();
-    func->input2 = this->input2.clone();
+    func->input1 = this->input1.clone_pre();
+    func->input2 = this->input2.clone_pre();
     return func;
+}
+
+
+// ---------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Addition}(Function) -> function{clone_post}
+// ---------------------------------------------------------------------------
+void lightgrad::Addition::clone_post(){
+    this->input1.clone_post();
+    this->input2.clone_post();
+    return;
 }
 
 
@@ -133,14 +143,24 @@ std::string lightgrad::Multiplication::type_name(){
 }
 
 
-// ----------------------------------------------------------------------------
-// namespace{lightgrad} -> class{Multiplication}(Function) -> function{clone}
-// ----------------------------------------------------------------------------
-lightgrad::Function *lightgrad::Multiplication::clone(){
+// --------------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Multiplication}(Function) -> function{clone_pre}
+// --------------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Multiplication::clone_pre(){
     Multiplication *func = new Multiplication;
-    func->input1 = this->input1.clone();
-    func->input2 = this->input2.clone();
+    func->input1 = this->input1.clone_pre();
+    func->input2 = this->input2.clone_pre();
     return func;
+}
+
+
+// ---------------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Multiplication}(Function) -> function{clone_post}
+// ---------------------------------------------------------------------------------
+void lightgrad::Multiplication::clone_post(){
+    this->input1.clone_post();
+    this->input2.clone_post();
+    return;
 }
 
 
@@ -240,15 +260,24 @@ std::string lightgrad::Subscript::type_name(){
 }
 
 
-// -----------------------------------------------------------------------
-// namespace{lightgrad} -> class{Subscript}(Function) -> function{clone}
-// -----------------------------------------------------------------------
-lightgrad::Function *lightgrad::Subscript::clone(){
+// ---------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Subscript}(Function) -> function{clone_pre}
+// ---------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Subscript::clone_pre(){
     Subscript *func = new Subscript;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     func->idx = this->idx;
     func->dim = this->dim;
     return func;
+}
+
+
+// ----------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Subscript}(Function) -> function{clone_post}
+// ----------------------------------------------------------------------------
+void lightgrad::Subscript::clone_post(){
+    this->input.clone_post();
+    return;
 }
 
 
@@ -323,13 +352,21 @@ std::string lightgrad::Unsubscript::type_name(){
 }
 
 
-// -------------------------------------------------------------------------
-// namespace{lightgrad} -> class{Unsubscript}(Function) -> function{clone}
-// -------------------------------------------------------------------------
-lightgrad::Function *lightgrad::Unsubscript::clone(){
+// -----------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Unsubscript}(Function) -> function{clone_pre}
+// -----------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Unsubscript::clone_pre(){
     Unsubscript *func = new Unsubscript;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     func->idx = this->idx;
     return func;
 }
 
+
+// ------------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Unsubscript}(Function) -> function{clone_post}
+// ------------------------------------------------------------------------------
+void lightgrad::Unsubscript::clone_post(){
+    this->input.clone_post();
+    return;
+}

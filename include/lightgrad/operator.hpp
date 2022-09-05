@@ -33,7 +33,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input1_, TensorFloat input2_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Addition() = default;
@@ -61,7 +62,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input1_, TensorFloat input2_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Multiplication() = default;
@@ -89,7 +91,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_, const size_t idx_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Subscript() = default;
@@ -117,7 +120,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_, const size_t idx_, const size_t dim_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Unsubscript() = default;

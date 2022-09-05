@@ -71,6 +71,8 @@ namespace lightgrad{
         /****************************/
         TensorFloat detach();
         TensorFloat clone();
+        TensorFloat clone_pre();
+        void clone_post();
         /****************************/
         size_t size();
         std::vector<size_t> shape();
@@ -104,6 +106,9 @@ namespace lightgrad{
         /****************************/
         bool created = false;
         Function *creator = nullptr;
+        /****************************/
+        bool cloned = false;
+        TensorFloatParam *destination = nullptr;
 
         // Constructor
         TensorFloatParam() = default;  // Default

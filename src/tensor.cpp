@@ -227,6 +227,8 @@ void lightgrad::TensorFloat::allocate(const std::vector<size_t> &shape_){
     tensorP.grad = TensorFloat();
     tensorP.created = false;
     tensorP.creator = nullptr;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     return;
 
@@ -253,6 +255,8 @@ void lightgrad::TensorFloat::from_scalar(const float scalar){
     tensorP.grad = TensorFloat();
     tensorP.created = false;
     tensorP.creator = nullptr;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     // (4) Set data
     tensorP.data[0] = scalar;
@@ -281,6 +285,8 @@ void lightgrad::TensorFloat::from_scalar(const float scalar, const std::vector<s
     tensorP.grad = TensorFloat();
     tensorP.created = false;
     tensorP.creator = nullptr;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     // (4) Set data
     for (size_t i = 0; i < tensorP.size; i++){
@@ -322,6 +328,8 @@ void lightgrad::TensorFloat::from_array(const float *array, const std::vector<si
     tensorP.grad = TensorFloat();
     tensorP.created = false;
     tensorP.creator = nullptr;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     // (5) Set data
     for (size_t i = 0; i < tensorP.size; i++){
@@ -364,6 +372,8 @@ void lightgrad::TensorFloat::from_array(const std::vector<float> &array, const s
     tensorP.grad = TensorFloat();
     tensorP.created = false;
     tensorP.creator = nullptr;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     // (5) Set data
     for (size_t i = 0; i < tensorP.size; i++){
@@ -398,6 +408,8 @@ void lightgrad::TensorFloat::create(Function * const creator_, const std::vector
     tensorP.grad = TensorFloat();
     tensorP.created = true;
     tensorP.creator = creator_;
+    tensorP.cloned = false;
+    tensorP.destination = nullptr;
 
     return;
 
@@ -464,21 +476,23 @@ lightgrad::TensorFloat lightgrad::TensorFloat::detach(){
 
     TensorFloat tensorO;
     /****************************************/
-    TensorFloatParam &tensorIS = *(this->param);
+    TensorFloatParam &tensorIP = *(this->param);
     /****************************************/
     tensorO.connect(new TensorFloatParam);
-    TensorFloatParam &tensorOS = *(tensorO.param);
-    tensorOS.exist = tensorIS.exist;
-    tensorOS.size = tensorIS.size;
-    tensorOS.shape = tensorIS.shape;
-    tensorOS.grad_on = false;
-    tensorOS.grad = TensorFloat();
-    tensorOS.created = false;
-    tensorOS.creator = nullptr;
-
-    tensorOS.data = new float[tensorOS.size];
-    for (size_t i = 0; i < tensorOS.size; i++){
-        tensorOS.data[i] = tensorIS.data[i];
+    TensorFloatParam &tensorOP = *(tensorO.param);
+    tensorOP.exist = tensorIP.exist;
+    tensorOP.size = tensorIP.size;
+    tensorOP.shape = tensorIP.shape;
+    tensorOP.grad_on = false;
+    tensorOP.grad = TensorFloat();
+    tensorOP.created = false;
+    tensorOP.creator = nullptr;
+    tensorOP.cloned = false;
+    tensorOP.destination = nullptr;
+    /****************************************/
+    tensorOP.data = new float[tensorOP.size];
+    for (size_t i = 0; i < tensorOP.size; i++){
+        tensorOP.data[i] = tensorIP.data[i];
     }
 
     return tensorO;
@@ -490,6 +504,16 @@ lightgrad::TensorFloat lightgrad::TensorFloat::detach(){
 // namespace{lightgrad} -> class{TensorFloat} -> function{clone}
 // ---------------------------------------------------------------
 lightgrad::TensorFloat lightgrad::TensorFloat::clone(){
+    TensorFloat output = this->clone_pre();
+    this->clone_post();
+    return output;
+}
+
+
+// -------------------------------------------------------------------
+// namespace{lightgrad} -> class{TensorFloat} -> function{clone_pre}
+// -------------------------------------------------------------------
+lightgrad::TensorFloat lightgrad::TensorFloat::clone_pre(){
 
     if (!this->exist){
         return TensorFloat();
@@ -497,27 +521,56 @@ lightgrad::TensorFloat lightgrad::TensorFloat::clone(){
 
     TensorFloat tensorO;
     /****************************************/
-    TensorFloatParam &tensorIS = *(this->param);
+    TensorFloatParam &tensorIP = *(this->param);
     /****************************************/
-    tensorO.connect(new TensorFloatParam);
-    TensorFloatParam &tensorOS = *(tensorO.param);
-    tensorOS.exist = tensorIS.exist;
-    tensorOS.size = tensorIS.size;
-    tensorOS.shape = tensorIS.shape;
-    tensorOS.grad_on = tensorIS.grad_on;
-    tensorOS.grad = tensorIS.grad.clone();
-    tensorOS.created = tensorIS.created;
-    if (tensorIS.created){
-        tensorOS.creator = tensorIS.creator->clone();
+    if (tensorIP.cloned){
+        tensorO.connect(tensorIP.destination);
     }
-
-    tensorOS.data = new float[tensorOS.size];
-    for (size_t i = 0; i < tensorOS.size; i++){
-        tensorOS.data[i] = tensorIS.data[i];
+    else{
+        tensorO.connect(new TensorFloatParam);
+        TensorFloatParam &tensorOP = *(tensorO.param);
+        tensorOP.exist = tensorIP.exist;
+        tensorOP.size = tensorIP.size;
+        tensorOP.shape = tensorIP.shape;
+        tensorOP.grad_on = tensorIP.grad_on;
+        tensorOP.grad = tensorIP.grad.clone_pre();
+        tensorOP.created = tensorIP.created;
+        if (tensorIP.created){
+            tensorOP.creator = tensorIP.creator->clone_pre();
+        }
+        else{
+            tensorOP.creator = nullptr;
+        }
+        tensorOP.cloned = false;
+        tensorOP.destination = nullptr;
+        /****************************************/
+        tensorOP.data = new float[tensorOP.size];
+        for (size_t i = 0; i < tensorOP.size; i++){
+            tensorOP.data[i] = tensorIP.data[i];
+        }
+        /****************************************/
+        tensorIP.cloned = true;
+        tensorIP.destination = tensorO.param;
     }
 
     return tensorO;
     
+}
+
+
+// --------------------------------------------------------------------
+// namespace{lightgrad} -> class{TensorFloat} -> function{clone_post}
+// --------------------------------------------------------------------
+void lightgrad::TensorFloat::clone_post(){
+    if (this->exist){
+        TensorFloatParam &tensorP = *(this->param);
+        if (tensorP.created){
+            tensorP.creator->clone_post();
+        }
+        tensorP.cloned = false;
+        tensorP.destination = nullptr;
+    }
+    return;
 }
 
 

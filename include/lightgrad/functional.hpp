@@ -35,7 +35,8 @@ namespace lightgrad{
         // Function (pure virtual)
         virtual void backward(TensorFloat grad_) = 0;
         virtual std::string type_name() = 0;
-        virtual Function *clone() = 0;
+        virtual Function *clone_pre() = 0;
+        virtual void clone_post() = 0;
 
         // Destructor (pure virtual)
         virtual ~Function() = default;
@@ -62,7 +63,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Identity() = default;
@@ -89,7 +91,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_, const std::vector<size_t> &shape_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~View() = default;
@@ -116,7 +119,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Sum() = default;
@@ -143,7 +147,8 @@ namespace lightgrad{
         TensorFloat forward(TensorFloat input_, const std::vector<size_t> &shape_);
         void backward(TensorFloat grad_) override;
         std::string type_name() override;
-        Function *clone() override;
+        Function *clone_pre() override;
+        void clone_post() override;
 
         // Destructor
         ~Expand() = default;

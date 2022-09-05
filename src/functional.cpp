@@ -56,13 +56,22 @@ std::string lightgrad::Identity::type_name(){
 }
 
 
-// ----------------------------------------------------------------------
-// namespace{lightgrad} -> class{Identity}(Function) -> function{clone}
-// ----------------------------------------------------------------------
-lightgrad::Function *lightgrad::Identity::clone(){
+// --------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Identity}(Function) -> function{clone_pre}
+// --------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Identity::clone_pre(){
     Identity *func = new Identity;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     return func;
+}
+
+
+// ---------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Identity}(Function) -> function{clone_post}
+// ---------------------------------------------------------------------------
+void lightgrad::Identity::clone_post(){
+    this->input.clone_post();
+    return;
 }
 
 
@@ -129,13 +138,22 @@ std::string lightgrad::View::type_name(){
 }
 
 
-// ------------------------------------------------------------------
-// namespace{lightgrad} -> class{View}(Function) -> function{clone}
-// ------------------------------------------------------------------
-lightgrad::Function *lightgrad::View::clone(){
+// ----------------------------------------------------------------------
+// namespace{lightgrad} -> class{View}(Function) -> function{clone_pre}
+// ----------------------------------------------------------------------
+lightgrad::Function *lightgrad::View::clone_pre(){
     View *func = new View;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     return func;
+}
+
+
+// -----------------------------------------------------------------------
+// namespace{lightgrad} -> class{View}(Function) -> function{clone_post}
+// -----------------------------------------------------------------------
+void lightgrad::View::clone_post(){
+    this->input.clone_post();
+    return;
 }
 
 
@@ -192,13 +210,22 @@ std::string lightgrad::Sum::type_name(){
 }
 
 
-// -----------------------------------------------------------------
-// namespace{lightgrad} -> class{Sum}(Function) -> function{clone}
-// -----------------------------------------------------------------
-lightgrad::Function *lightgrad::Sum::clone(){
+// ---------------------------------------------------------------------
+// namespace{lightgrad} -> class{Sum}(Function) -> function{clone_pre}
+// ---------------------------------------------------------------------
+lightgrad::Function *lightgrad::Sum::clone_pre(){
     Sum *func = new Sum;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     return func;
+}
+
+
+// ----------------------------------------------------------------------
+// namespace{lightgrad} -> class{Sum}(Function) -> function{clone_post}
+// ----------------------------------------------------------------------
+void lightgrad::Sum::clone_post(){
+    this->input.clone_post();
+    return;
 }
 
 
@@ -271,13 +298,22 @@ std::string lightgrad::Expand::type_name(){
 }
 
 
-// --------------------------------------------------------------------
-// namespace{lightgrad} -> class{Expand}(Function) -> function{clone}
-// --------------------------------------------------------------------
-lightgrad::Function *lightgrad::Expand::clone(){
+// ------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Expand}(Function) -> function{clone_pre}
+// ------------------------------------------------------------------------
+lightgrad::Function *lightgrad::Expand::clone_pre(){
     Expand *func = new Expand;
-    func->input = this->input.clone();
+    func->input = this->input.clone_pre();
     return func;
+}
+
+
+// -------------------------------------------------------------------------
+// namespace{lightgrad} -> class{Expand}(Function) -> function{clone_post}
+// -------------------------------------------------------------------------
+void lightgrad::Expand::clone_post(){
+    this->input.clone_post();
+    return;
 }
 
 

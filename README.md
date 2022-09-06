@@ -9,7 +9,22 @@ $ git clone https://github.com/koba-jon/lightgrad.git
 $ cd lightgrad
 ~~~
 
-## (2) Build
+## (2) Build for Library
+
+~~~
+$ cd cmake
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make install
+$ cd ../..
+~~~
+
+## (3) Build for Example
+
+~~~
+$ cd example
+~~~
 
 For release (default):
 ~~~
@@ -30,7 +45,7 @@ $ cd ..
 ~~~
 
 
-## (3) Execute
+## (4) Execute
 
 ~~~
 $ ./Example

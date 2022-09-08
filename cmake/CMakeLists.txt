@@ -8,6 +8,9 @@ set(LightGrad_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(LightGrad_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/../lightgrad)
 
+# Set Compiler Options
+set(CMAKE_CXX_FLAGS "-O2 -Wall")
+
 # Add library
 add_library(lightgrad
     SHARED

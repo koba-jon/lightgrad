@@ -20,10 +20,26 @@ $ make install
 $ cd ../..
 ~~~
 
-## (3) Execute for Example
+This operation created the directory "<this_repository_name>/lightgrad".
+
+## (3) Execute
 
 ~~~
 $ cd example
+~~~
+
+### Set Path
+
+~~~
+$ vi CMakeLists.txt
+~~~
+
+Please change the 5th line of "CMakeLists.txt" according to the path of the directory "<this_repository_name>/lightgrad".
+The following is the default value for "example".
+
+~~~
+4: project(Example CXX)
+5: list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../lightgrad)
 ~~~
 
 ### Build

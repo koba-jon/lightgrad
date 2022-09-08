@@ -104,13 +104,13 @@ std::ostream &lightgrad::operator<<(std::ostream &os, const TensorFloat &tensor)
 
     // (1) Check for element existence of the array
     if (!tensor.exist){
-        os << "[Not exist]";
+        os << "[Not exist]\n";
         return os;
     }
     /******************************************/
     TensorFloatParam &tensorP = *(tensor.param);
     if (!tensorP.exist){
-        os << "[Not exist]";
+        os << "[Not exist]\n";
         return os;
     }
 

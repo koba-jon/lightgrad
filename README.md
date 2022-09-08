@@ -34,7 +34,7 @@ $ cd example
 $ vi CMakeLists.txt
 ~~~
 
-Please change the 5th line of "CMakeLists.txt" according to the path of the directory "<this_repository_name>/lightgrad".<br/>
+Please change the 5th line of "CMakeLists.txt" according to the path of the directory "<this_repository_name>/lightgrad".<br>
 The following is the default value for "example".
 
 ~~~

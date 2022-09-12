@@ -29,7 +29,7 @@ set(LightGrad_HEADERS
     ${LightGrad_INCLUDE_DIR}/lightgrad/optimizer.hpp
 )
 
-set_target_properties(lightgrad PROPERTIES PUBLIC_HEADER "${LightGrad_HEADERS}")
+set_target_properties(lightgrad PROPERTIES PUBLIC_HEADER "${LightGrad_HEADERS}" CXX_STANDARD 17)
 include_directories(${LightGrad_INCLUDE_DIR})
 
 install(TARGETS lightgrad
